@@ -30,10 +30,13 @@ export default function CropModal({
   return (
     <div 
       style={{ position: "fixed", zIndex: 1000, top: 0, left: 0, right: 0, bottom: 0}}
-      className="w-full h-screen bg-yellow-400"
+      className="w-full h-screen bg-white"
     >
       <div className="">
-        <div style={{ position: "relative", width: "80%", height: "60vh"}} className="max-h-[45vh]">
+        <div
+          style={{ position: "relative", width: "80%", height: "60vh"}}
+          className="mt-8 mx-auto max-h-[40vh]"
+        >
           <Cropper
             image={imageSrc}
             crop={crop}

@@ -7,6 +7,7 @@ export default function Thumbnail() {
   const [croppedImage, setCroppedImage] = useState(null); // 크롭된 이미지
   const [showCropModal, setShowCropModal] = useState(false); // 크롭 화면 표시 여부
   const [aspectRatio, setAspectRatio] = useState(1 / 1);
+  const [template, setTemplate] = useState("DEFAULT");
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -57,64 +58,86 @@ export default function Thumbnail() {
   };
 
   return (
-    <div className="w-full text-center">
-      <h1 className="mt-8 text-apricot-orange text-2xl font-bold">
-        썸네일을 만들어보쟈
-      </h1>
+      <div className="w-full">
+        <h1 className="mt-8 text-apricot-orange text-2xl font-bold text-center">
+          썸네일을 만들어보쟈
+        </h1>
 
-      <div className="mt-6 w-[80%] min-h-[35vh] mx-[10%] bg-slate-500">
-        {croppedImage && (
-          <div>
-            {/* 크롭된 이미지 미리보기 */}
-            <img src={croppedImage} alt="Cropped" className="max-h-[35vh] mx-auto"/>
-          </div>
-        )}
-      </div>
+        <div className="mt-6 w-[80%] min-h-[39vh] mx-[10%] border rounded">
+          {croppedImage ? (
+              <div>
+                <div className="absolute z-20 w-[80%] -mt-3 flex justify-end">
+                  <div
+                    className="w-3"
+                    onClick={handleImageRemove}
+                  >
+                    X
+                  </div>
+                </div>
+                {/* 크롭된 이미지 미리보기 */}
+                <img src={croppedImage} alt="Cropped" className="max-h-[39vh] mx-auto"/>
+              </div>
+          ) : (
+              <div
+                className="m-full h-[35vh] flex items-center justify-center"
+                onClick={() => document.getElementById("image-upload").click()}
+              >
+                탭하여 이미지 추가
+              </div>
+          )}
+        </div>
 
-      {!croppedImage ? (
-        <div>
-          {/* 업로드 버튼 */}
-          <label htmlFor="image-upload" style={{cursor: "pointer"}}>
-            <button onClick={() => document.getElementById("image-upload").click()}>이미지 업로드</button>
-          </label>
-          <input
+        <input
             id="image-upload"
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
             style={{display: "none"}}
-          />
-        </div>
-        ) : (
-          <div>
-            <button onClick={handleImageRemove}>이미지 삭제</button>
-          </div>
-        )
-      }
-
-      <div>
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="" disabled>
-            Select an option
-          </option>
-          {options.map((option) => (
-            <option key={option.id} value={option.name}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* 크롭 모달 */}
-      {showCropModal && (
-        <CropModal
-          imageSrc={selectedImage}
-          aspectRatio={aspectRatio} // 기본 비율 (1:1)
-          onCropComplete={handleCropComplete}
-          onClose={() => setShowCropModal(false)}
-          onAspectChange={setAspectRatio} // 비율 변경 핸들러 전달
         />
-      )}
-    </div>
+
+        <div className="w-[80%] mx-auto mt-2 space-y-4">
+          <div>
+            <div>
+              템플릿
+            </div>
+            <div>
+              셀렉트
+            </div>
+          </div>
+
+          <div>
+            <div>
+              암장
+            </div>
+            <select value={selectedOption} onChange={handleOptionChange}>
+              <option value="" disabled>
+                Select an option
+              </option>
+              {options.map((option) => (
+                <option key={option.id} value={option.name}>
+                  {option.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <div>
+              성공
+            </div>
+          </div>
+        </div>
+
+        {/* 크롭 모달 */}
+        {showCropModal && (
+          <CropModal
+            imageSrc={selectedImage}
+            aspectRatio={aspectRatio} // 기본 비율 (1:1)
+            onCropComplete={handleCropComplete}
+            onClose={() => setShowCropModal(false)}
+            onAspectChange={setAspectRatio} // 비율 변경 핸들러 전달
+          />
+        )}
+      </div>
   );
 }
