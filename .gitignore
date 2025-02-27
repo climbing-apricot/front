@@ -48,3 +48,5 @@ out/
 
 ### VS Code ###
 .vscode/
+public/workbox-4754cb34.js
+public/sw.js
