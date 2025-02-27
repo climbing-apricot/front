@@ -57,10 +57,21 @@ export default function Thumbnail() {
   };
 
   return (
-    <div>
-      <h1>Thumbnail Generator</h1>
+    <div className="w-full text-center">
+      <h1 className="mt-8 text-apricot-orange text-2xl font-bold">
+        썸네일을 만들어보쟈
+      </h1>
 
-      {!croppedImage && (
+      <div className="mt-6 w-[80%] min-h-[35vh] mx-[10%] bg-slate-500">
+        {croppedImage && (
+          <div>
+            {/* 크롭된 이미지 미리보기 */}
+            <img src={croppedImage} alt="Cropped" className="max-h-[35vh] mx-auto"/>
+          </div>
+        )}
+      </div>
+
+      {!croppedImage ? (
         <div>
           {/* 업로드 버튼 */}
           <label htmlFor="image-upload" style={{cursor: "pointer"}}>
@@ -71,20 +82,15 @@ export default function Thumbnail() {
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
-            style={{display: "none"}} // 숨겨진 파일 선택
+            style={{display: "none"}}
           />
         </div>
-      )}
-
-      {croppedImage && (
-        <div>
-          {/* 크롭된 이미지 미리보기 */}
-          <img src={croppedImage} alt="Cropped" style={{maxWidth: "300px"}}/>
+        ) : (
           <div>
             <button onClick={handleImageRemove}>이미지 삭제</button>
           </div>
-        </div>
-      )}
+        )
+      }
 
       <div>
         <select value={selectedOption} onChange={handleOptionChange}>

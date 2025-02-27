@@ -28,9 +28,12 @@ export default function CropModal({
   }, [croppedAreaPixels, imageSrc, onCropComplete]);
 
   return (
-    <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000 }}>
-      <div>
-        <div style={{ position: "relative", width: "100%", height: "80vh" }}>
+    <div 
+      style={{ position: "fixed", zIndex: 1000, top: 0, left: 0, right: 0, bottom: 0}}
+      className="w-full h-screen bg-yellow-400"
+    >
+      <div className="">
+        <div style={{ position: "relative", width: "80%", height: "60vh"}} className="max-h-[45vh]">
           <Cropper
             image={imageSrc}
             crop={crop}
@@ -41,17 +44,19 @@ export default function CropModal({
             onCropComplete={handleCropComplete}
           />
         </div>
-        <div style={{ textAlign: "center", marginTop: 20 }}>
+        <div className="space-x-4" style={{ textAlign: "center", marginTop: 20 }}>
           <button onClick={() => onAspectChange(1 / 1)}>1:1</button>
           <button onClick={() => onAspectChange(3 / 4)}>3:4</button>
           <button onClick={() => onAspectChange(4 / 5)}>4:5</button>
           <button onClick={() => onAspectChange(9 / 16)}>9:16</button>
         </div>
         <div style={{ textAlign: "center", marginTop: 20 }}>
-          <button onClick={handleCropImage} style={{ marginRight: 10 }}>
-            Complete Crop
+          <button onClick={onClose} className="mr-10">
+            취소
           </button>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={handleCropImage}>
+            완료
+          </button>
         </div>
       </div>
     </div>
