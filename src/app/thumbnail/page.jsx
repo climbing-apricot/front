@@ -128,7 +128,6 @@ export default function Thumbnail() {
           </div>
         </div>
 
-        {/* 크롭 모달 */}
         {showCropModal && (
           <CropModal
             imageSrc={selectedImage}
